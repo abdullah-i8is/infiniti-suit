@@ -196,7 +196,7 @@
               </div>
               <div class="ud-form-group">
                 <input id="company_input" onchange="handleChange()" type="text" placeholder="Company" />
-              </div> 
+              </div>
               <div class="ud-form-group">
                 <input id="email_input" onchange="handleChange()" type="text" placeholder="Email Address" />
               </div>
@@ -450,12 +450,13 @@
             }),
           });
           const data = await response.json();
-          if (response.ok) {
-            return data;
-          } else {
-            console.error('Signup failed', data);
-            throw new Error('Signup failed');
-          }
+          // if (response.ok) {
+          //   return data;
+          // } else {
+          //   console.error('Signup failed', data);
+          //   throw new Error('Signup failed');
+          // }
+          return data
         } catch (error) {
           console.log("catch error", error);
           throw error;
@@ -476,13 +477,13 @@
             body: formData,
           });
           const data = await response.json();
-          console.log(data);
-          if (response.ok) {
-            return data.token;
-          } else {
-            console.error('Add organization failed', data);
-            throw new Error('Add organization failed');
-          }
+          // if (response.ok) {
+          //   return data.token;
+          // } else {
+          //   console.error('Add organization failed', data);
+          //   throw new Error('Add organization failed');
+          // }
+          return data
         } catch (error) {
           console.log("catch error", error);
           throw error;
@@ -521,13 +522,23 @@
         }
         else {
           try {
-            const res = await Promise.all([handleSubmit1(), handleSubmit2()]);
-            Swal.fire({
-              title: "Congratulations",
-              text: "Account Created Successfully",
-              icon: "success"
-            });
-            console.log('All submissions succeeded:', res);
+            const [res1, res2] = await Promise.all([handleSubmit1(), handleSubmit2()]);
+            if (res1?.success === false && res2?.response) {
+              Swal.fire({
+                title: "Error",
+                text: res1?.message,
+                icon: "error"
+              });
+            }
+            else {
+              Swal.fire({
+                title: "Congratulations",
+                text: "Account Created Successfully",
+                icon: "success"
+              });
+            }
+            console.log('All submissions succeeded:', res1);
+            console.log('All submissions succeeded:', res2);
           } catch (error) {
             console.error('One or more submissions failed:', error);
           }

@@ -47,7 +47,7 @@
             <div class="navbar-collapse">
               <ul id="nav" class="navbar-nav mx-auto">
                 <li class="nav-item">
-                  <a class="ud-menu-scroll" href="https://infiniti-suit.vercel.app/">Home</a>
+                  <a class="ud-menu-scroll" href="#home">Home</a>
                 </li>
                 <li class="nav-item nav-item-has-children">
                   <a href="javascript:void(0)"> Products </a>
@@ -139,14 +139,14 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="ud-menu-scroll" href="https://infiniti-suit.vercel.app/#about">About</a>
+                  <a class="ud-menu-scroll" href="#about">About</a>
                 </li>
                 <li class="nav-item">
-                  <a class="ud-menu-scroll" href="https://infiniti-suit.vercel.app/#pricing">Pricing</a>
+                  <a class="ud-menu-scroll" href="#pricing">Pricing</a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="ud-menu-scroll" href="https://infiniti-suit.vercel.app/#contact">Contact</a>
+                  <a class="ud-menu-scroll" href="#contact">Contact</a>
                 </li>
 
               </ul>
@@ -205,10 +205,19 @@
             </div>
 
             <div class="ud-socials-connect">
-              <p>login With Google</p>
+              <p>Connect With</p>
 
               <ul>
-                
+                <li>
+                  <a href="javascript:void(0)" class="facebook">
+                    <i class="lni lni-facebook-filled"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" class="twitter">
+                    <i class="lni lni-twitter-filled"></i>
+                  </a>
+                </li>
                 <li>
                   <a href="javascript:void(0)" class="google">
                     <i class="lni lni-google"></i>
@@ -436,12 +445,13 @@
             body: JSON.stringify(login),
           });
           const data = await response.json();
-          // if (response.ok) {
-          //   return data.token
-          // } else {
-          //   console.error('Login failed', data);
-          // }
-          return data
+          if (response.ok) {
+            return {
+              token: data.token
+            }
+          } else {
+            console.error('Login failed', data);
+          }
         }
         catch (error) {
           console.log("catch error", error);
@@ -481,30 +491,30 @@
         else {
           try {
             const [res1, res2] = await Promise.all([handleSubmit1(), handleSubmit2()]);
-            Swal.fire({
-              title: "Congratulations",
-              text: "Login Successfully",
-              icon: "success"
-            });
-            function objectToQueryString(obj) {
-              return Object.keys(obj).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(obj[key])).join('&');
+            if (res1?.token && res2?.response === "Success") {
+              Swal.fire({
+                title: "Congratulations",
+                text: "Login Successfully",
+                icon: "success"
+              });
+              function objectToQueryString(obj) {
+                return Object.keys(obj).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(obj[key])).join('&');
+              }
+              const queryString = objectToQueryString(login);
+              setTimeout(() => {
+                // window.location.href = `http://localhost:3000/${token}?${queryString}`;
+                window.location.href = `https://pipedrive-phi.vercel.app/${res1?.token}?${queryString}`;
+              }, 1000);
             }
-            const queryString = objectToQueryString(login);
-            console.log(res1);
-            console.log(res2);
-            if (res1?.status === 400) {
+            else {
               Swal.fire({
                 title: "Error",
                 text: "Login failed",
                 icon: "error"
               });
             }
-              // setTimeout(() => {
-              // window.location.href = `http://localhost:3000/${token}?${queryString}`;
-              // window.location.href = `https://pipedrive-phi.vercel.app/${token}?${queryString}`;
-              // }, 1000);
-              console.log('All login succeeded:', res1);
-              console.log('All login succeeded:', res2);
+            console.log(res1);
+            console.log(res2);
           } catch (error) {
             console.error('One or more submissions failed:', error);
           }
