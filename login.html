@@ -526,7 +526,7 @@
       email_input.addEventListener("input", handleChange);
       password_input.addEventListener("input", handleChange);
       login_btn.addEventListener("click", handleAllSubmits);
-      formContainer.addEventListener("keypress", () => {
+      formContainer.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
           handleAllSubmits()
         }
