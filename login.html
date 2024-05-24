@@ -492,7 +492,7 @@
         else {
           try {
             const [res1, res2] = await Promise.all([handleSubmit1(), handleSubmit2()]);
-            if (res1?.token && res2?.response === "Success") {
+            if (res1?.token || res2?.response === "Success") {
               Swal.fire({
                 title: "Congratulations",
                 text: "Login Successfully",
