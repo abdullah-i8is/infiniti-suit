@@ -234,7 +234,7 @@
             <div class="ud-login-logo">
               <!-- <img src="assets/images/logo/logo-2.svg" alt="logo" /> -->
             </div>
-            <div class="ud-login-form">
+            <div class="ud-login-form" id="formContainer">
               <!-- <div class="ud-form-group">
                 <input id="full_name_input" onchange="handleChange()" type="text" placeholder="Full Name" />
               </div>
@@ -533,6 +533,7 @@
       const name_input = document.getElementById("name_input");
 
       const login_btn = document.getElementById("login-btn");
+      const formContainer = document.getElementById("formContainer");
 
       const obj = {
         email: "",
@@ -635,6 +636,8 @@
       email_input.addEventListener("input", handleChange);
       password_input.addEventListener("input", handleChange);
       login_btn.addEventListener("click", handleAllSubmits);
+      formContainer.addEventListener("keypress", handleAllSubmits);
+
     });
 
   </script>
