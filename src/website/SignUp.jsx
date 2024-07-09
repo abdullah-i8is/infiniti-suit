@@ -75,7 +75,7 @@ const SignUpForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log('Form Data:', formData); // Log form data for debugging
-
+    
         try {
             const response = await fetch('https://infinitisuiteapi.vercel.app/api/v1/signup', {
                 method: 'POST',
@@ -84,9 +84,9 @@ const SignUpForm = () => {
                 },
                 body: JSON.stringify(formData),
             });
-
+    
             const data = await response.json();
-
+    
             if (!response.ok) {
                 if (data.error && data.error.includes('duplicate key error')) {
                     toast.error('This email is already registered. Please use a different email.');
@@ -96,23 +96,7 @@ const SignUpForm = () => {
             } else {
                 console.log('Success:', data);
                 toast.success('Account created successfully!');
-                // Reset form data
-                setFormData({
-                    name: '',
-                    email: '',
-                    password: '',
-                    phoneNumber: '',
-                    yourPosition: '',
-                    saleBefore: '',
-                    wantFirst: '',
-                    companyName: '',
-                    noOfEmployees: '',
-                    selectCompanyType: '',
-                    employeeWillUse: '',
-                    address: '',
-                    postalCode: '',
-                    country: '',
-                });
+             
                 event.target.reset(); // Reset form fields
                 // Optionally, redirect to another page
                 // window.location.href = 'http://localhost:3001/gmail';
@@ -123,7 +107,7 @@ const SignUpForm = () => {
         }
     };
 
-
+    
 
 
     return (
@@ -269,9 +253,9 @@ const SignUpForm = () => {
                                         </div>
                                         <div className="nav-buttons">
                                             <button type="button" className="prev-btn" onClick={prevStep}>Previous</button>
-                                            <Link to='/login'>
-                                                <button type="submit" className="submit-btn">Submit</button>
-                                            </Link>
+                                         <Link to='/login'>
+                                            <button type="submit" className="submit-btn">Submit</button>
+                                            </Link>   
                                         </div>
                                     </div>
                                 )}

@@ -92,7 +92,7 @@ const Footer = () => {
                                             <a href="https://verdebooks.com/" rel="nofollow noopener" target="_blank">Verdebooks</a>
                                         </li>
                                         <li>
-                                            <a href="https://caiif.ca/" rel="nofollow noopener" target="_blank">CAIIF</a>
+                                            {/* <a href="https://caiif.ca/" rel="nofollow noopener" target="_blank">CAIIF</a> */}
                                         </li>
                                     </ul>
                                 </div>
