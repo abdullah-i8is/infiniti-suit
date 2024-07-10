@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import headerLogo from '../assets/images/logo/Infinity Logo Final Blue.png'
 import heroBanner from '../assets/images/banner/crm-system-4487382-3722743.png'
 import dootedImage from '../assets/images/hero/dotted-shape.svg'
-import brandHero from '../assets/images/logo.png'
+import brandHero from '../assets/images/logo2.png'
 import verdeBook from '../assets/images/logo/verdebook.png'
 import caiif from '../assets/images/logo/caiif.png'
 import sstrack from '../assets/images/logo/sstrack.png'
@@ -159,7 +159,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-lg-3 col-sm-6">
+            {/* <div className="col-xl-3 col-lg-3 col-sm-6">
               <div className="ud-single-feature wow fadeInUp" data-wow-delay=".25s">
                 <div className="ud-feature-icon">
                   <img src={caiif} style={{ width: '50px' }} alt="CAIIF" />
@@ -174,7 +174,7 @@ const Home = () => {
                   </a>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

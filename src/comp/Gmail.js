@@ -21,6 +21,8 @@ import automationIcon from '../assets/Automation.png'; // Replace with your actu
 import assignmentIcon from '../assets/Automatic_Assignment.png';
 import documentsIcon from '../assets/Document.png';
 import importIcon from '../assets/Import_Data.png';  // Add your three-dot icon
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 
 function Gmail() {
 
@@ -76,7 +78,7 @@ function Gmail() {
     };
 
     // const clientId = "928209376096-euig13evhrr352f9m3cov0t8aq4o4dj7.apps.googleusercontent.com";
-    const clientId = "928209376096-giumfldna5ggmfpim0iek1btcj895ssb.apps.googleusercontent.com";
+    const clientId = "158574328851-8crs82souqrfd29o83fqvck4mj2atru9.apps.googleusercontent.com";
 
     const initClient = () => {
         gapi.client.init({

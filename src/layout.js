@@ -8,7 +8,7 @@ import icon3 from './assets/icon3.png';
 import icon4 from './assets/icon4.png';
 import icon5 from './assets/icon5.png';
 import icon6 from './assets/calender-icon.png';
-import icon7 from './assets/caiif-icon.png';
+// import icon7 from './assets/caiif-icon.png';
 import icon8 from './assets/marketing.png';
 import icon9 from './assets/b.png';
 import dollar from './assets/dollar.svg';
@@ -24,7 +24,7 @@ const Layout = () => {
         { path: '/verdebooks', isActive: false },
         { path: '/click HR', isActive: false },
         { path: '/calender', isActive: false },
-        { path: '/caiif', isActive: false },
+        // { path: '/caiif', isActive: false },
         { path: '/campaigns', isActive: false },
     ]);
 
@@ -37,7 +37,7 @@ const Layout = () => {
         <img width={30} src={icon4} alt="" />,
         <img width={30} src={icon2} alt="" />,
         <img width={30} src={icon6} alt="" />,
-        <img width={30} src={icon7} alt="" />,
+        // <img width={30} src={icon7} alt="" />,
         <img width={30} src={icon8} alt="" />,
     ];
 
