@@ -91,9 +91,9 @@ function AccountMenu() {
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-         <Link to='/login' style={{textDecoration:'none' , color:'black'}}> 
-         Logout
-         </Link>
+          <Link to='/login' style={{ textDecoration: 'none', color: 'black' }}>
+            Logout
+          </Link>
         </MenuItem>
       </Menu>
     </React.Fragment>

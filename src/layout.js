@@ -22,7 +22,7 @@ const Layout = () => {
         { path: '/docs', isActive: false },
         { path: '/sstrack', isActive: false },
         { path: '/verdebooks', isActive: false },
-        { path: '/click HR', isActive: false },
+        { path: '/clickHr', isActive: false },
         { path: '/calender', isActive: false },
         // { path: '/caiif', isActive: false },
         { path: '/campaigns', isActive: false },

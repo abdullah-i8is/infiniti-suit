@@ -14,10 +14,11 @@ const NavBar = () => {
 
   const knownRoutes = [
     '/gmail',
+    '/deals',
     '/docs',
     '/sstrack',
     '/verdebooks',
-    '/click HR',
+    '/clickHr',
     '/calender',
     '/caiif',
   ];
