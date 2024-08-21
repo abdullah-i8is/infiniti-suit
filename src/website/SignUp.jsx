@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from './Footer';
 import { Link } from 'react-router-dom';
 import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/bootstrap.css";
 
 
 const countries = [
@@ -408,7 +409,7 @@ const SignUpForm = () => {
                                                     name='phoneNumber'
                                                     value={formData.phoneNumber}
                                                     onChange={handleInputChange1}
-                                                    style={{ fontSize: '16px', padding: '10px', width: '230%', marginLeft: 20 }}
+                                                    style={{ fontSize: '16px', padding: '5px', width: '230%', marginLeft: 20 }}
                                                 />
                                                 {/* <input
                                                         type="tel"
