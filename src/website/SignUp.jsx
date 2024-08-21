@@ -5,7 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from './Footer';
 import { Link } from 'react-router-dom';
 import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/bootstrap.css";
 
 
 const countries = [
