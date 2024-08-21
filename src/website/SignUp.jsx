@@ -56,7 +56,7 @@ const SignUpForm = () => {
             ...formData,
             [name]: value,
         });
-    }; 1
+    };
 
     const handleInputChange1 = (e) => {
         let name, value;
