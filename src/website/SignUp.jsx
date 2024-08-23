@@ -255,7 +255,7 @@ const handleStartDateChange = (selectedTimezone) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setIsSubmitting(true); // Disable the button when clicked
+        setIsSubmitted(true); // Disable the button when clicked
 
         const registerData = {
             name,
@@ -292,7 +292,7 @@ const handleStartDateChange = (selectedTimezone) => {
             console.error('Error registering:', error);
             // Show error toast
             toast.error('Error registering!');
-            setIsSubmitting(false); // Re-enable the button
+            setIsSubmitted(false); // Re-enable the button
         }
     };
     // console.log('Handle Submit ....', handleSubmit())no
