@@ -279,7 +279,7 @@ const handleStartDateChange = (selectedTimezone) => {
 
         try {
 
-            const response = await axios.post('http://localhost:9095/api/v1/signup', registerData);
+            const response = await axios.post('https://infinitisuiteapi.vercel.app/api/v1/signup', registerData);
             console.log('Registration successful!');
             console.log(response.data);
 
