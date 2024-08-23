@@ -282,12 +282,28 @@ const handleStartDateChange = (selectedTimezone) => {
             const response = await axios.post('https://infinitisuiteapi.vercel.app/api/v1/signup', registerData);
             console.log('Registration successful!');
             console.log(response.data);
-
+            if (response.status >= 200 && response.status < 300) { // Check for successful status codes (2xx)
+                console.log('Registration successful!');
+                console.log(response.data);
+            
+                // Show success toast
+                toast.success('Registration successful!');
+            
+                // Navigate to login page
+                navigate('/login');
+              } else {
+                // Handle non-successful response
+                console.error('Registration failed:', response.data); // Log the error for debugging
+            
+                // Display error message from the response (if available)
+                const errorMessage = response.data.message || 'An error occurred during registration.';
+                toast.error(errorMessage); 
+              }
             // Show success toast
-            toast.success('Registration successful!');
+            // toast.success('Registration successful!');
 
             // Navigate to login page
-            navigate('/login');
+            // navigate('/login');
         } catch (error) {
             console.error('Error registering:', error);
             // Show error toast
