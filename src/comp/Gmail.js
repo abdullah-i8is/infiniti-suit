@@ -78,8 +78,9 @@ function Gmail() {
 
     // const clientId = "928209376096-euig13evhrr352f9m3cov0t8aq4o4dj7.apps.googleusercontent.com";
     // const clientId = "928209376096-giumfldna5ggmfpim0iek1btcj895ssb.apps.googleusercontent.com";
-    const clientId = '209177226023-dv7fd0gg4cl14ql4i75l6jh084r919a2.apps.googleusercontent.com' //Noman
+    // const clientId = '209177226023-dv7fd0gg4cl14ql4i75l6jh084r919a2.apps.googleusercontent.com' //Noman
     // const clientId = '830206605140-74unuac862pi920eqgh4lv5udo3grv5e.apps.googleusercontent.com' //Nagina
+    const clientId = '209177226023-3a9i1gfbh8gqgo6ad87m279klni47784.apps.googleusercontent.com' //Noman new
 
     const initClient = () => {
         gapi.client.init({
