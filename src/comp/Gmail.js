@@ -21,8 +21,7 @@ import automationIcon from '../assets/Automation.png'; // Replace with your actu
 import assignmentIcon from '../assets/Automatic_Assignment.png';
 import documentsIcon from '../assets/Document.png';
 import importIcon from '../assets/Import_Data.png';  // Add your three-dot icon
-import { GoogleOAuthProvider } from '@react-oauth/google';
-
+import { toast, ToastContainer } from 'react-toastify';
 
 function Gmail() {
 
@@ -32,9 +31,9 @@ function Gmail() {
     const password = searchParams.get('password');
 
     useEffect(() => {
-        // localStorage.setItem("auth_token", params.token)
-        // localStorage.setItem("email", email)
-        // localStorage.setItem("password", password)
+        localStorage.setItem("auth_token", params.token)
+        localStorage.setItem("email", email)
+        localStorage.setItem("password", password)
     }, [])
 
     const [items, setItems] = useState([
@@ -77,14 +76,16 @@ function Gmail() {
         setSelectedItem(item);
     };
 
-
-
     // const clientId = "928209376096-euig13evhrr352f9m3cov0t8aq4o4dj7.apps.googleusercontent.com";
-    const clientId = "158574328851-8crs82souqrfd29o83fqvck4mj2atru9.apps.googleusercontent.com";
+    // const clientId = "928209376096-giumfldna5ggmfpim0iek1btcj895ssb.apps.googleusercontent.com";
+    // const clientId = '209177226023-dv7fd0gg4cl14ql4i75l6jh084r919a2.apps.googleusercontent.com' //Noman
+    const clientId = '830206605140-74unuac862pi920eqgh4lv5udo3grv5e.apps.googleusercontent.com'
 
     const initClient = () => {
         gapi.client.init({
-            apiKey: "AIzaSyBnfB76i1iSe8mn2eywaWYKTL22ThTA25E",
+            // apiKey: "AIzaSyBcyi-E1WIfj3gvWVUk6jc4erXAAgw2PFM",
+            // apiKey: "AIzaSyAOKvw3Bh_mf4mgRJ2JyQLNZSVidmogk9o", //Noman 
+            apiKey: 'AIzaSyDUfw23QNpyHLBEi3NnbcvFcWlDRZetq08', // Nagina
             clientId: clientId,  // Ensure this is correctly set
             discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"],
             scope: "https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/contacts.readonly https://www.googleapis.com/auth/drive.readonly"
@@ -97,7 +98,6 @@ function Gmail() {
             console.error("Failed to init GAPI client", error);
         });
     }
-    // gapi.load('client:auth2', initClient)
 
     function getUserInfo() {
         var auth2 = gapi.auth2.getAuthInstance();
@@ -370,7 +370,65 @@ function Gmail() {
         );
     };
 
-    function sendMessage() {
+    async function sendMessage() {
+  setOpenCompose(false);
+  setSendingMessage(true);
+
+  const emailLines = [
+    'Content-Type: text/plain; charset="UTF-8"',
+    'MIME-Version: 1.0',
+    'Content-Transfer-Encoding: 7bit',
+    `To: ${emailUser}`,
+    `From: ${currentUser?.cu}`,
+    `Subject: ${emailSubject}`,
+    '',
+    `${emailMessage}`
+  ];
+  const base64EncodedEmail = btoa(unescape(encodeURIComponent(emailLines.join('\n'))))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+
+  try {
+    const response = await gapi.client.gmail.users.messages.send({
+      'userId': 'me',
+      'resource': {
+        'raw': base64EncodedEmail
+      }
+    });
+
+    setSendingMessage(false);
+    console.log("Email sent successfully!", response.result);
+    toast.success('Email sent successfully!');
+
+  } catch (error) {
+    setSendingMessage(false);
+    console.error("Failed to send email", error);
+
+    if (error.result && error.result.error && error.result.error.status === "PERMISSION_DENIED") {
+      // Handle insufficient scopes error
+      console.log("Insufficient permissions. Requesting additional scopes...");
+
+      // Request additional scopes (you'll need to implement this based on your OAuth flow)
+      // Example using Google's JavaScript client library:
+      gapi.auth2.getAuthInstance().grantOfflineAccess(['https://www.googleapis.com/auth/gmail.send'])
+        .then(() => {
+          // Retry sending the email after obtaining new token with additional scopes
+          sendMessage(); // Or you might want to prompt the user to retry manually
+        })
+        .catch(err => {
+          console.error('Error granting additional scopes:', err);
+          toast.error('Failed to send email. Please check your Gmail permissions.');
+        });
+
+    } else {
+      // Handle other errors
+      toast.error('Something went wrong! Failed to send email.');
+    }
+  }
+}
+
+    function sendMessageold() {
         setOpenCompose(false)
         setSendingMessage(true)
 
@@ -426,35 +484,30 @@ function Gmail() {
         const [activeEmailLink, setEmailLink] = useState("");
         const navigate = useNavigate();
         const [email, setEmail] = useState("");
-        const [error, setError] = useState("")
+        const [error, setError] = useState("");
+
         const validateEmail = (email) => {
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return re.test(String(email).toLowerCase());
         }
+
         const handleSignIn = async () => {
             if (!validateEmail(email)) {
                 setError("Please enter a valid email");
                 return;
             }
             try {
-                setError("");
+                setError("")
                 const auth2 = gapi.auth2.getAuthInstance();
-                console.log('auth2 chala', auth2)
-                if (!auth2) {
-                    console.error("Google Auth API not initialized");
-                    return;
-                }
                 await auth2.signIn({ prompt: 'select_account', login_hint: email });
                 const token = auth2.currentUser.get().getAuthResponse().access_token;
-                console.log('token.......', token);
                 localStorage.setItem("user_token", token);
-
-                // Redirect to Gmail inbox
-                // window.location.replace("https://mail.google.com/mail/u/0/#inbox");
+                console.log(token);
             } catch (error) {
                 console.error("Error signing in", error);
             }
         };
+
         console.log(activeEmailLink);
 
         return (
@@ -524,7 +577,7 @@ function Gmail() {
                                 onClick={handleSignIn}
                             >Connect email account</button>
                         </div>
-                        <p style={{ fontSize: "16px", color: "black" }}>Connect your email accounts to manage sales conversations in Pipedrive. Close deals faster.</p>
+                        <p style={{ fontSize: "16px", color: "black" }}>Connect your email accounts to manage sales conversations in Infiniti Suit. Close deals faster.</p>
                     </div>
                     <div style={{ backgroundColor: '#f8f8fe', padding: "50px 60px" }}>
                         <p style={{ fontSize: "25px", color: "black", marginBottom: "20px", width: "500px" }}>
@@ -617,26 +670,7 @@ function Gmail() {
                         </div>
                     ) : (
                         <>
-                            <div className="header">
-
-                                <div className="header__left">
-                                    <span className="material-icons"> menu </span>
-                                    <img
-                                        src="https://i.pinimg.com/originals/ae/47/fa/ae47fa9a8fd263aa364018517020552d.png"
-                                        alt=""
-                                    />
-                                </div>
-                                <div className="header__middle">
-                                    <span className="material-icons"> search </span>
-                                    <input type="text" placeholder="Search mail" />
-                                    <span className="material-icons"> arrow_drop_down </span>
-                                </div>
-                                <div className="header__right">
-                                    <span className="material-icons"> apps </span>
-                                    <span className="material-icons"> notifications </span>
-                                    <span className="material-icons"> account_circle </span>
-                                </div>
-                            </div>
+                          
                             <div className="main__body">
                                 <div className="sidebar">
                                     <button className="sidebar__compose" onClick={() => setOpenCompose(true)}>
@@ -684,23 +718,11 @@ function Gmail() {
                                         <span className="material-icons"> note </span>
                                         <h3>Drafts</h3>
                                     </div>
-                                    {/* <div className={`sidebarOption`}>
-                  <span className="material-icons"> expand_more </span>
-                  <h3>More</h3>
-                </div>
-                <div className="sidebar__footer">
-                  <div className="sidebar__footerIcons">
-                    <span className="material-icons"> person </span>
-                    <span className="material-icons"> duo </span>
-                    <span className="material-icons"> phone </span>
-                  </div>
-                </div> */}
                                 </div>
                                 <div className="emailList">
                                     <div className="emailList__settings">
                                         <div className="emailList__settingsLeft">
                                             <input type="checkbox" />
-                                            {/* <button onClick={signOut}>Sign Out</button> */}
                                             <span className="material-icons header-icons"> arrow_drop_down </span>
                                             <span className="material-icons header-icons"
                                                 onClick={() => {
@@ -801,4 +823,3 @@ function Gmail() {
 }
 
 export default Gmail;
-
