@@ -78,14 +78,14 @@ function Gmail() {
 
     // const clientId = "928209376096-euig13evhrr352f9m3cov0t8aq4o4dj7.apps.googleusercontent.com";
     // const clientId = "928209376096-giumfldna5ggmfpim0iek1btcj895ssb.apps.googleusercontent.com";
-    const clientId = '209177226023-dv7fd0gg4cl14ql4i75l6jh084r919a2.apps.googleusercontent.com' //Noman
-    // const clientId = '830206605140-74unuac862pi920eqgh4lv5udo3grv5e.apps.googleusercontent.com' //Nagina
+    // const clientId = '209177226023-dv7fd0gg4cl14ql4i75l6jh084r919a2.apps.googleusercontent.com' //Noman
+    const clientId = '830206605140-74unuac862pi920eqgh4lv5udo3grv5e.apps.googleusercontent.com' //Nagina
 
     const initClient = () => {
         gapi.client.init({
             // apiKey: "AIzaSyBcyi-E1WIfj3gvWVUk6jc4erXAAgw2PFM",
-            apiKey: "AIzaSyAOKvw3Bh_mf4mgRJ2JyQLNZSVidmogk9o", //Noman 
-            // apiKey: 'AIzaSyDUfw23QNpyHLBEi3NnbcvFcWlDRZetq08', // Nagina
+            // apiKey: "AIzaSyAOKvw3Bh_mf4mgRJ2JyQLNZSVidmogk9o", //Noman 
+            apiKey: 'AIzaSyDUfw23QNpyHLBEi3NnbcvFcWlDRZetq08', // Nagina
             clientId: clientId,  // Ensure this is correctly set
             discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"],
             scope: "https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/contacts.readonly https://www.googleapis.com/auth/drive.readonly"
